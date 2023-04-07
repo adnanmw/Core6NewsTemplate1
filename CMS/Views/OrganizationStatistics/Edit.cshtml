@@ -1,0 +1,36 @@
+﻿@model CMS.Models.OrganizationStatistics
+
+<h2>Edit Organization Statistics</h2>
+
+<form asp-action="Edit">
+    <div class="form-group">
+        <label asp-for="Statistics" class="control-label"></label>
+        <input asp-for="Statistics" class="form-control" />
+        <span asp-validation-for="Statistics" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Committees" class="control-label"></label>
+        <input asp-for="Committees" class="form-control" />
+        <span asp-validation-for="Committees" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="TeamMembers" class="control-label"></label>
+        <input asp-for="TeamMembers" class="form-control" />
+        <span asp-validation-for="TeamMembers" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Beneficiaries" class="control-label"></label>
+        <input asp-for="Beneficiaries" class="form-control" />
+        <span asp-validation-for="Beneficiaries" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ScientificActivities" class="control-label"></label>
+        <input asp-for="ScientificActivities" class="form-control" />
+        <span asp-validation-for="ScientificActivities" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-primary" />
+    </div>
+</form>
+
+<a class="btn btn-secondary" asp-action="Index">Back to List</a>

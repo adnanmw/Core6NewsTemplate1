@@ -1,0 +1,450 @@
+﻿@model CMS.Models.Viewmodel.HomeViewModel
+
+
+<style>
+    .carousel-caption {
+        top: 50%;
+        transform: translateY(-50%);
+        bottom: initial;
+        text-align: center;
+    }
+</style>
+<link rel="stylesheet" href="~/css/site.css" />
+
+<!-- Slider Image section -->
+@if (Model.SliderImages != null)
+{
+    <div id="carouselExampleCaptions" class="carousel slide mt-5" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            @foreach (var sliderImage in Model.SliderImages)
+            {
+                <div class="carousel-item @if (sliderImage == Model.SliderImages.First()) { <text>active</text> }">
+                    <div style="max-height: 800px; overflow: hidden;">
+                        <img src="@Url.Action("Display", "SliderImages", new { id = sliderImage.Id })" class="d-block w-100 h-auto" alt="@sliderImage.FileName">
+                    </div>
+                    <div class="carousel-caption d-none d-md-block">
+                        <h1 class="text-black mt-5 caption-heading">@sliderImage.Header</h1>
+                        <h3 class="text-black mt-5 caption-text">@sliderImage.Paragraph</h3>
+                    </div>
+                </div>
+            }
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+}
+
+
+<br />
+<br />
+<br />
+
+<!-- About Us section -->
+<div class="container">
+    <div class="row">
+        @if (Model.AboutUs != null)
+        {
+            <div class="col-md-6 col-sm-12">
+                <div class="d-flex justify-content-center justify-content-sm-start mb-4 mb-sm-0">
+                    <a class="btn btn-primary rounded-pill" style="margin-right: 10px;">About Us</a>
+                </div>
+                <h2 class="ms-auto me-auto text-center">@Model.AboutUs.Title</h2>
+                <p class="ms-auto me-auto mt-4 text-center">@Model.AboutUs.Content</p>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe class="embed-responsive-item" src="@Model.AboutUs.VideoLink" allowfullscreen></iframe>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
+<br />
+<br />
+<br />
+<!-- Blogs section -->
+
+<div class="slider">
+    <div class="row">
+        <div class="col-lg-12  text-center">
+         <a   class="btn btn-primary ms-5 border-raduis rounded-pill" style="padding: 10px 20px; margin-bottom: 20px;">Last Blogs</a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <div id="blog-carousel" class="carousel slide" data-bs-ride="carousel">
+
+      <div class="carousel-inner">
+        @for (var i = 0; i < Model.Bloggers.Count(); i += 3)
+        {
+          var active = i == 0 ? "active" : "";
+          <div class="carousel-item @active">
+            <div class="row row-cols-1 row-cols-md-3">
+              @foreach (var blog in Model.Bloggers.Skip(i).Take(3))
+              {
+                <div class="col mb-4">
+                  <div class="card h-100">
+                    <img class="card-img-top" src="@blog.ImageUrl" alt="Card image cap">
+                    <div class="card-body d-flex flex-column">
+                      <h5 class="card-title">@blog.Title</h5>
+                      <p class="card-text">@Html.Raw(GetShortDescription(@blog.Description))</p>
+                      @if (blog.Category != null)
+                      {
+                        <p class="card-text"><strong>Category:</strong> @blog.Category.Name</p>
+                      }
+                      <p class="card-text mt-auto"><small class="text-muted">By @blog.Author</small></p>
+                    </div>
+                  </div>
+                </div>
+              }
+            </div>
+          </div>
+        }
+
+      </div>
+
+      <button class="carousel-control-prev" type="button" data-bs-target="#blog-carousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#blog-carousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+@functions {
+    public string GetShortDescription(string description)
+    {
+        var words = description.Split(' ');
+        var shortDescription = string.Join(" ", words.Take(15));
+        return $"{shortDescription}...";
+    }
+}
+<!-- Statistics section -->
+
+  <div class="text-center">
+         <a   class="btn btn-primary ms-5 border-raduis rounded-pill" style="padding: 10px 20px; margin-bottom: 20px;">Statistics</a>
+    </div>
+<div style="background-color: #F9E2AF; padding:10px; padding-bottom:50px;">
+<div class="container">
+  
+    <div class="container text-center  mt-5 ">
+<div class="row justify-content-center">
+    @if (Model.OrganizationStatistics != null)
+    {
+        <div class="col-lg-2 col-sm-6 mb-3 text-center">
+            <h5 class="pt-4">Statistics</h5>
+            <p>@Model.OrganizationStatistics?.Statistics</p>
+        </div>
+
+        <div class="col-lg-2 col-sm-6 mb-3 text-center">
+            <h5 class="pt-4">Committees</h5>
+            <p>@Model.OrganizationStatistics?.Committees</p>
+        </div>
+
+        <div class="col-lg-2 col-sm-6 mb-3 text-center">
+            <h5 class="pt-4">Team Members</h5>
+            <p>@Model.OrganizationStatistics?.TeamMembers</p>
+        </div>
+
+        <div class="col-lg-2 col-sm-6 mb-3 text-center">
+            <h5 class="pt-4">Beneficiaries</h5>
+            <p>@Model.OrganizationStatistics?.Beneficiaries</p>
+        </div>
+
+        <div class="col-lg-2 col-sm-6 mb-3 text-center">
+            <h5 class="text-nowrap pt-4">Scientific Activities</h5>
+            <p>@Model.OrganizationStatistics.ScientificActivities</p>
+        </div>
+    }
+</div>
+
+
+</div>
+</div>
+</div>
+
+<br />
+<br />
+<br />
+<!-- Services section -->
+
+<div class="text-center">
+         <a   class="btn btn-primary ms-5 border-raduis rounded-pill" style="padding: 10px 20px; margin-bottom: 20px;">Our services</a>
+    </div>
+                        <div class="container">
+    <div class="row">
+        @{
+            int count = 0;
+        }
+        @foreach (var item in Model.Services)
+        {
+            count++;
+
+            <div class="col-md-4 col-sm-6">
+                <div class="card mb-4">
+                    <img src="@item.ImageUrl" class="card-img-top img-thumbnail p-3" alt="@item.Title" style="width: 100%; height:160px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">@item.Title</h5>
+                        <p class="card-text text-center">@item.Description</p>
+                       
+                    </div>
+                </div>
+            </div>
+
+            if (count % 3 == 0)
+            {
+                @:</div><div class="row">
+            }
+        }
+    </div>
+</div>
+<br />
+<br />
+<br />
+
+<!-- Members section -->
+
+<div class="text-center">
+         <a   class="btn btn-primary ms-5 border-raduis rounded-pill" style="padding: 10px 20px; margin-bottom: 20px;">our members</a>
+    </div>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div id="membersCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    @for (var i = 0; i < Model.members.Count(); i += 4)
+                    {
+                        var active = i == 0 ? "active" : "";
+                        <div class="carousel-item @active">
+                            <div class="row justify-content-center row-cols-1 row-cols-md-4 g-4">
+                                @foreach (var item in Model.members.Skip(i).Take(4))
+                                {
+                                    <div class="col d-flex justify-content-center">
+                                        <div class="card border border-primary" style="width: 12rem; height: 18rem;">
+                                            <div class="card-img-top" style="height: 200px; width: 100%; object-fit: cover; padding: 3px;">
+                                                <img class="pt-3" src="@item.ImageUrl" alt="Member image" style="width: 100%; height: 100%; object-fit: cover;">
+                                            </div>
+                                            <div class="card-body d-flex flex-column">
+                                                <p class="card-text mt-auto" style="padding: 3px;"><small class="text-muted">@item.FullName</small></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#membersCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#membersCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<br />
+<br />
+
+<footer class="border-top footer text-muted mt-0 " style="background-color:#1a1a1a; margin-bottom:auto;">
+        <div class="row">
+            <div class="col-lg-6 col-md-12 mt-5" style="padding-left: 10rem;">
+                @if (Model.Footer != null)
+                {
+                    <h1 class="text-white">
+                        @Model.Footer.OrganizationName
+                    </h1>
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                        <img src="@Url.Action("DisplayFirst", "Logo")" alt="CMS Logo" style="height: auto; width : auto;" />
+                    </a>
+                    @if (Model.Footer.Description != null)
+                    {
+                        <p style="width:60%; word-wrap: break-word; line-height: 1.5;" class="mt-3">
+                            @if (Model.Footer.Description != null)
+                            {
+                                string[] words = Model.Footer.Description.Split(' ');
+                                for (int i = 0; i < words.Length; i++)
+                                {
+                                    @words[i]
+                                    if ((i + 1) % 10 == 0)
+                                    {
+                                        <br />
+                                    }
+                                    else
+                                    {
+                                        @(" ")
+                                    }
+                                }
+                            }
+                        </p>
+                    }
+                }
+            </div>
+            <div class="col-lg-6 col-md-12 mt-5" style="padding-left: 10rem;">
+                @if (Model.Footer != null && Model.Footer.LocationAddress != null)
+                {
+                    <h1 class="text-white">Location</h1>
+                    <p class="text-white">@Model.Footer.LocationAddress</p>
+                }
+            </div>
+        </div>
+
+
+    <div class="text-center mt-5 mb-5">
+    <!-- Facebook -->
+    <a class="p-5" style="color: #3b5998;" href="https://@Model.SocialMediaLinks.FirstOrDefault()?.FacebookLink" target="_blank" rel="noopener" role="button">
+        <i class="fab fa-facebook-f fa-lg" style="font-size: 2em;"></i>
+    </a>
+
+    <!-- Twitter -->
+    <a class="p-5" style="color: #55acee;" href="https://@Model.SocialMediaLinks.FirstOrDefault()?.TwitterLink" role="button">
+        <i class="fab fa-twitter fa-lg" style="font-size: 2em;"></i>
+    </a>
+
+    <!-- Google -->
+    <a class="p-5" style="color: #dd4b39;" href="https://@Model.SocialMediaLinks.FirstOrDefault()?.GoogleLink" role="button">
+        <i class="fab fa-google fa-lg" style="font-size: 2em;"></i>
+    </a>
+
+    <!-- Instagram -->
+    <a class="p-5" style="color: #ac2bac;" href="https://@Model.SocialMediaLinks.FirstOrDefault()?.InstagramLink" role="button">
+        <i class="fab fa-instagram fa-lg" style="font-size: 2em;"></i>
+    </a>
+</div>
+
+
+    </footer>
+
+<style>
+    body{
+       @* background-color: #F9E2AF;*@
+    }
+    .custom-card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        transition: 0.3s;
+        border: 1px solid #0d6efd;
+        height: 100%;
+    }
+
+    .custom-card:hover {
+        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    .custom-card-img-top {
+        height: 200px;
+        width: 100%;
+        object-fit: cover;
+        padding: 3px;
+    }
+
+    .custom-card-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .custom-card-title {
+        padding: 3px;
+    }
+
+    .custom-card-description {
+        padding-top: 2px;
+    }
+
+    .custom-card-author {
+        padding: 3px;
+    }
+   
+    .special-menu-cards {
+margin-top: 10rem;
+}
+
+.special-card-scroll {
+display: flex;
+flex-wrap: wrap;
+overflow-x: auto;
+gap: 2rem;
+padding-top: 4rem;
+}
+
+.special-cards {
+background-color: #f9f9f9;
+border-radius: 2rem;
+box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
+min-width: 350px;
+min-height: 380px;
+padding-top: 6rem;
+}
+
+.card-rounded-circle {
+height: 200px;
+width: 200px;
+}
+
+.card-img-overlay {
+position: absolute;
+top: -26%;
+left: 20%;
+}
+
+.card-title {
+font-size: 2.5rem;
+font-weight: bold;
+}
+
+.card-subtitle {
+color: #434242;
+font-size: 1.5rem;
+margin-top: 1rem;
+margin-bottom: 2rem;
+}
+
+
+
+.card-footer {
+background-color: #f9f9f9;
+}
+
+
+
+
+
+    
+</style>
+<script>
+  $(document).ready(function() {
+    // Handler for previous button click
+    $('.carousel-control-prev').click(function() {
+      $('#blog-carousel').carousel('prev');
+    });
+  
+    // Handler for next button click
+    $('.carousel-control-next').click(function() {
+      $('#blog-carousel').carousel('next');
+    });
+  });
+</script>
+
+

@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a class="btn btn-primary" asp-action="Upload">Upload Logo</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Logo</th>
+            <th>File Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Logos)
+        {
+            <tr>
+                <td>
+                    <img src="@Url.Action("Display", "Logo", new { id = item.Id })" alt="@item.FileName" width="100" />
+                </td>
+                <td>
+                    @item.FileName
+                </td>
+                <td>
+                    <form asp-action="DeleteConfirmed" asp-route-logoId="@item.Id" method="post" style="display:inline-block;">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

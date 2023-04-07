@@ -1,0 +1,94 @@
+@media (max-width: 576px) {
+    .carousel-caption .caption-heading {
+        font-size: 24px;
+    }
+
+    .carousel-caption .caption-text {
+        font-size: 16px;
+    }
+}
+.special-menu-cards {
+    margin-top: 10rem;
+}
+
+.special-card-scroll {
+    display: flex;
+    flex-wrap: wrap;
+    overflow-x: auto;
+    gap: 2rem;
+    padding-top: 4rem;
+}
+
+.special-cards {
+    background-color: #f9f9f9;
+    border-radius: 2rem;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
+    min-width: 350px;
+    min-height: 380px;
+    padding-top: 6rem;
+}
+
+.card-rounded-circle {
+    height: 200px;
+    width: 200px;
+}
+
+.card-img-overlay {
+    position: absolute;
+    top: -26%;
+    left: 20%;
+}
+
+.card-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.card-subtitle {
+    color: #434242;
+    font-size: 1.5rem;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+}
+
+.card-text {
+    color: #434242;
+    font-size: 1.2rem;
+    line-height: 1.8rem;
+    margin-bottom: 2rem;
+}
+
+.card-footer {
+    background-color: #f9f9f9;
+    border-radius: 0 0 2rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem;
+}
+
+.pricing {
+    color: #aa8b56;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+    .pricing span {
+        font-size: 1.5rem;
+        margin-right: 0.5rem;
+    }
+
+.menu-btn {
+    background-color: #aa8b56;
+    color: #f9f9f9;
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    transition: all 0.2s ease-in-out;
+}
+
+    .menu-btn:hover {
+        background-color: #f9f9f9;
+        color: #434242;
+    }

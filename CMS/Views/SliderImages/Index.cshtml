@@ -1,0 +1,43 @@
+﻿@model List<CMS.Models.SliderImage>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var image in Model)
+            {
+                <tr>
+                    <td>
+                        <img src="@Url.Action("Display", "SliderImages", new { id = image.Id })" class="img-fluid table-image" alt="@image.FileName">
+                    </td>
+                    <td>
+                        <form asp-controller="SliderImages" asp-action="Delete" method="post">
+                            <input type="hidden" name="id" value="@image.Id" />
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <p>
+        <a class="btn btn-primary" asp-action="Upload">Upload Image</a>
+    </p>
+</div>
+
+<style>
+    .table-image {
+        max-width: 100px;
+        max-height: 50px;
+    }
+</style>

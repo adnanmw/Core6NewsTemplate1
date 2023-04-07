@@ -1,0 +1,35 @@
+﻿@model List<CMS.Models.Category>
+
+<h2>Blogger Categories</h2>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create">Create New</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var category in Model)
+        {
+            <tr>
+                <td>@category.Id</td>
+                <td>@category.Name</td>
+                <td>
+                    <a class="btn btn-warning" asp-action="Edit" asp-route-id="@category.Id">Edit</a>
+                </td>
+                <td>
+                    <form asp-action="Delete" asp-route-id="@category.Id" method="post" onsubmit="return confirm('Are you sure you want to delete this category?');">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

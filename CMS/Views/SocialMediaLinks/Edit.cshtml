@@ -1,0 +1,28 @@
+﻿@model CMS.Models.SocialMediaLinks
+
+<h2>Edit Social Media Link</h2>
+
+<form asp-action="Edit">
+    <div class="form-group">
+        <label asp-for="FacebookLink"></label>
+        <input asp-for="FacebookLink" class="form-control" />
+        <span asp-validation-for="FacebookLink" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="TwitterLink"></label>
+        <input asp-for="TwitterLink" class="form-control" />
+        <span asp-validation-for="TwitterLink" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="GoogleLink"></label>
+        <input asp-for="GoogleLink" class="form-control" />
+        <span asp-validation-for="GoogleLink" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="InstagramLink"></label>
+        <input asp-for="InstagramLink" class="form-control" />
+        <span asp-validation-for="InstagramLink" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
